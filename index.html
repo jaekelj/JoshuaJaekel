@@ -21,6 +21,41 @@
   <!-- Custom styles for this template -->
   <link href="css/resume.min.css" rel="stylesheet">
 
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    
+    .column {
+      float: left;
+      width: 33.33%;
+      padding: 5px;
+    }
+    
+    /* Clearfix (clear floats) */
+    .row::after {
+      content: "";
+      clear: both;
+      display: table;
+      vertical-align: text-bottom;
+    }
+
+    .row.centered {
+      /* height: 100vh; */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px;
+    }
+
+    .center {
+      margin: auto;
+      width: 50%;
+      border: 3px transparent;
+      padding: 10px;
+    }
+    </style>
+
 </head>
 
 <body id="page-top">
@@ -44,15 +79,13 @@
           <a class="nav-link js-scroll-trigger" href="#education">Education</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link js-scroll-trigger" href="#projects">Projects</a>
+          <a class="nav-link js-scroll-trigger" href="#projects">Highlighted Projects</a>
         </li>
 
         <li class="nav-item">
           <a class="nav-link js-scroll-trigger" href="#publications">Publications</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link js-scroll-trigger" href="#in_the_news">In the news</a>
-        </li>
+
         <li class="nav-item">
           <a class="nav-link js-scroll-trigger" href="#interests">Interests</a>
         </li>
@@ -71,10 +104,13 @@
           <a href="mailto:jjaekel@cmu.edu">jjaekel{at}cmu{dot}edu</a>
         </div>
         <p class="lead mb-5">
-          I am currently a Graduate Student at the Robotics Institue at Carnegie Mellon University. 
+          I am currently a graduate student at the Robotics Institue at Carnegie Mellon University. I work in the <a href="http://rpl.ri.cmu.edu/">Robot Perception Lab</a> under the supervision of Dr. Michael Kaess. 
           My primary research interests involve <b>robot perception</b> and <b>autonomy</b>, with a focus on creating systems robust enough to be deployed in the wild. 
           I am currently competing in the <a href="https://www.subtchallenge.com/">DARPA Subterranean Challenge</a> as a member of <a href="https://www.subt-explorer.com/">Team Explorer</a>. 
           I hope you enjoy taking a glimpse at some of the projects I've been proud to work on!  </p>
+
+          <p class="lead mb-5">
+            I'm currently searching for future job opportunities. If you believe I would be a good fit at your company please reach out and I'd be happy to share a full resume. </p>
         <div class="social-icons">
           <a href="https://www.linkedin.com/in/joshua-jaekel/">
             <i class="fab fa-linkedin-in"></i>
@@ -119,9 +155,66 @@
 
     <section class="resume-section p-3 p-lg-5 d-flex justify-content-center" id="projects">
       <div class="w-100">
-        <h2 class="mb-5">Projects</h2>
+        <h2 class="mb-5">Highlighted Projects</h2>
+        <div class="Robust VIO">
+          <h3 class="mb-0">Robust Visual Inertial Odometry</h3>
+          <p class="lead mb-5">
+            This project has been the focus of my research in the Robot Perception Lab at CMU. The goal is to use information from multiple cameras with non-overlapping fields of view and an inertial measurement 
+            unit to create a VIO algorithm capable of maintaining a state estimate where current state-of-the-art algorithms fail. I developed a feature based VIO algorithm with a novel outlier rejection scheme that is
+            able to jointly select features across multiple cameras to use in a back-end optimization.</p>
 
-      
+            <div class="center">
+              <img src="img/factor_graph.png" style="width:90%">
+            </div>
+          
+            <p class="lead mb-5">
+            The backend of the state estimator is a factor graph which includes projection factors from features tracked in each stereo pair as well as IMU preintegration factors. The pipeline accounts for uncertainty in the extrinsic calibration between cameras in both the feature selection step as well as the backend optimization. Results for this project are currently submitted for peer review. I look forward to sharing more details at the time of publication!
+            </p>
+        </div>
+
+        <div class="Multi-Stereo Direct Visual Inertial Odometry">
+          <h3 class="mb-0">Multi-Stereo Direct Visual Inertial Odometry</h3>
+          <p class="lead mb-5">
+              This work was completed as part of a group project for the <i>Robot Localization and Mapping</i> course at CMU. The project extended my main research which focussed on indirect methods for multi-camera VIO.</p>
+              <div class="center">
+                <img src="img/dvo_diagram.png" style="width:99%">
+              </div>
+              <p class="lead mb-5">
+                The inputs to our pipeline included data from an IMU and images from an arbitrary number of stereo cameras with non-overlapping fields of view. The state estimate was calculated using a factor graph based optimization which used IMU preintegration factors and joint direct visual odometry factors. The joint DVO factors were pose-to-pose constraints which jointly minimized the photometric error between images in all the stereo pairs.</p>
+
+              <div class="row centered">
+                <div class="column">
+                  <img src="img/gazebo_mav.gif" style="width:100%">
+                </div>
+                <div class="column">
+                  <img src="img/middle_dvo.png" style="width:100%">
+                </div>                  
+                <div class="column">
+                  <img src="img/dvo.gif" style="width:100%">
+                </div>
+              </div>
+      </div>
+
+        <div class="Planning for Coverage Under Uncertainty">
+            <h3 class="mb-0">Planning for Coverage Under Uncertainty</h3>
+            <p class="lead mb-5">
+                This work was completed as part of a group project for the <i>Planning for Robotics</i> course at CMU. The goal of the project was to generate plans for a robot given noisy odometry and a known localizability map. The localizability map consisted of range beacons placed throughout the environment. The goal of the planner was to explore the environment while attempting to minimize both its distance travelled and state uncertainty.</p>
+                <div class="row centered">
+                  <div class="column">
+                    <img src="img/dijkstra.gif" style="width:100%">
+                    <figcaption>Baseline (Dijkstra) point-to-point planner</figcaption>
+                  </div>
+                  <div class="column">
+                    <img src="img/point-to-point.gif" style="width:100%">
+                    <figcaption>Uncertainty aware point-to-point planner</figcaption>
+                  </div>                  
+                </div>
+                <p class="lead mb-5">
+                  The robot generates plans which deviate from the shortest path in order to reduce its state uncertainty by travelling near range beacons. It also performed collision checking within 3-sigma of its estimated state to maintain safety even under state uncertainty.</p>
+                  <div class="center">
+                  <img src="img/coverage.gif" style="width:99%">
+                </div>
+        </div>
     </section>
 
 
@@ -129,24 +222,20 @@
     <section class="resume-section p-3 p-lg-5 d-flex align-items-center" id="publications">
       <div class="w-100">
           <h2 class="mb-5">Publications</h2>
-
-    </section>
-
-    <hr class="m-0">
-    <section class="resume-section p-3 p-lg-5 d-flex align-items-center" id="in_the_news">
-      <div class="w-100">
-          <h2 class="mb-5">In the news</h2>
-    </section>
-
+            <p><b>Jaekel, J.</b>, Mangelson, J., & Kaess, M. (2020, May) <i>Submitted.</i> Robust Multi-Stereo Visual-Inertial Odometry. Submitted to 2020 IEEE International Conference on Robotics and Automation (ICRA).</p>
+            <p><b>Jaekel, J.</b>, Ahamed, M. J. (2017, March). An inertial navigation system with acoustic obstacle detection for pedestrian applications. In 2017 IEEE International Symposium on Inertial Sensors and Systems (INERTIAL). </p>
+            <p>Liu, J., <b>Jaekel, J.</b>, Ramdani, D., Khan, N., Ting, D. S. K., & Ahamed, M. J. (2016, November). Effect of geometric and material properties on thermoelastic damping (TED) of 3D hemispherical inertial resonator. In ASME 2016 International Mechanical Engineering Congress and Exposition. </p>
     </section>
 
     <hr class="m-0">
     <section class="resume-section p-3 p-lg-5 d-flex align-items-center" id="interests">
       <div class="w-100">
           <h2 class="mb-5">Interests</h2>
-    </section>
 
+    <p>While I've been lucky enough to turn several of my interests into full-time research, I do still have some interests which keep me busy outside of the Lab. I'm an avid sports fan, and although it may be difficult at times I'm a strong supporter of all the Detroit area sports teams. I've also been a volunteer with the <a href="https://www.hoby.org/">Hugh O'Brian Youth (HOBY) Leadership Organization</a> since 2012.</p>
   </div>
+  </section>
+
 
   <!-- Bootstrap core JavaScript -->
   <script src="vendor/jquery/jquery.min.js"></script>
